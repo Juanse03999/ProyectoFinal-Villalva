@@ -1,0 +1,112 @@
+/* PAGE PRODUCT */
+
+.products-title {
+    color: #EAEFEF;
+    text-align: center;
+    margin-top: 24px;
+}
+
+/* PAGE PRODUCT */
+
+
+
+/* ItemListContainer.jsx */
+
+/* 📱 Una sola columna en celular */
+#container-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columnas flexibles */
+    gap: 1.5rem;
+    padding: 0;
+    max-width: 1920px;      /* Limita el ancho del grid en pantallas muy grandes */
+    margin-inline: 1.5rem;    /* margen horizontal igual al gap */
+    margin-block: 1.5rem;     /* margen arriba y abajo */
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* 💻 A partir de 768px (tablets, notebooks), dos columnas */
+@media (min-width: 768px) {
+    #container-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ItemListContainer.jsx */
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: #191616;
+    border: #EAEFEF 0.1px solid;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+    text-decoration: none;
+}
+
+/* .card {
+    width: 100%;
+    min-height: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: #191616;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+    border: #EAEFEF 0.1px solid;
+    text-decoration: none;
+}
+
+ */
+
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card-image {
+    width: 100%;
+    object-fit: cover;
+}
+
+.card-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    text-align: left;
+    padding: 0 0.3125rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: #EAEFEF;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-description {
+    font-size: 1rem;
+    color: #666;
+    flex: 1;
+    margin-bottom: 0.8rem;
+}
+
+.card-price {
+    font-size: 1.25rem;
+    color: #EAEFEF;
+    font-weight: bold;
+}
+
+
+
+
+@media (min-width: 1024px) {
+    #container-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
