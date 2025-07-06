@@ -1,0 +1,43 @@
+/* MOBILE */
+
+.cart-icon-container {
+    text-decoration: none;
+    color: white;
+}
+
+.icon-cart {
+    position: relative;
+    /* background-color: red; */
+    font-size: 30px;
+}
+
+.cart-count {
+    width: 23px;
+    height: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    font-size: 15px;
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    border: 1px white solid;
+    padding: 2px 6px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* MOBILE */

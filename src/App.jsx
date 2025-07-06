@@ -11,6 +11,7 @@ import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import ItemListContainer from "./components/ItemListContainer/ItemListContainer"
 import Products from "./components/Pages/Products"
+import Cart from "./components/Cart/Cart"
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             {/* <Route path="product/:productId" element={<ItemDetailContainer />} /> */}
             {/* <Route path="checkout" element={<CheckoutForm />} /> */}
             <Route path="info" element={<Info />} />
+            <Route path="cart" element={<Cart />} />
             <Route path="*" element={<Error404 />} />
 
           </Route>

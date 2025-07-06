@@ -1,13 +1,26 @@
 /* MOBILE */
 
-.logo-img {
-    width: 50px;
-    height: 50px;
-}
 
 .custom-navbar {
-    background-color: black;
+    max-width: 100%;
+    width: 100%;
+    /* background-color: black; */
     border-bottom: 1px white solid;
+    padding: 0.7rem 1.3rem !important;
+}
+
+
+.container-fluid {
+    padding: 0 !important;
+    display: flex;
+    justify-content: space-between !important;
+
+    background-color: blue !important;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
 }
 
 .link1 {
@@ -17,22 +30,52 @@
 
 
 /* organizacion del navbar */
-.uno {
+.uno {  /* Boton para menu */
     order: 0;
 }
-
-.dos {
-    order: 1;
+.navbar-toggler {
+    border: none !important;
 }
 
-.tres {
+.dos {  /* Logo */
+    order: 1;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.tres {  /* Contenido para el menu */
     order: 2;
 }
 
-.cuatro {
+.cuatro {  /* Carito */
     order: 3;
 }
 /* organizacion del navbar */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* cambio de color icono de menu hamburguesa */
 .uno .navbar-toggler-icon {
@@ -40,8 +83,8 @@
 }
 
 .uno:focus {
-    outline: 0;
-    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25); /* O un box-shadow blanco transparente */
+    /* outline: 0; */
+    box-shadow: none !important;
 }
 
 .offcanvas-header .btn-close {
@@ -66,6 +109,87 @@
 /* menu hamburguesa navbar de color negro */
 
 
+.uno {
+    padding: 0 !important;
+}
+
+
+
+
+
+/* MENU HAMBURGUESA */
+.tres {  /* Contenido para el menu */
+    width: 80vw;
+    display: flex;
+}
+
+/* HEADER DE MENU HAMBURGUESA */
+
+.offcanvas-header {
+    /* width: 100px; */
+    height: 100px;
+    display: flex;
+    /* justify-content: space-between; */
+    background-color: orange;
+    position: relative;
+    padding: 0 !important;
+}
+
+.chota {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black ;
+}
+
+
+.img-header-menu {
+    margin: 0 auto;
+}
+
+
+.btn-close {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: blue !important;
+    position: absolute;
+    /* top: 0; */
+    right: 0;
+}
+
+.arg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 100%;
+    background-color: red !important;
+}
+
+
+
+
+
+
+/* HEADER DE MENU HAMBURGUESA */
+
+/* BODY DE MENU HAMBURGUESA */
+
+.offcanvas-body {
+        background-color: blue;
+}
+
+
+
+
+
+
+/* BODY DE MENU HAMBURGUESA */
+/* MENU HAMBURGUESA */
+
+
 
 
 
@@ -78,8 +202,14 @@
 
 
 
-/* === MOBILE (menos de 992px) === */
-@media (max-width: 768px) {
+/* === DESKTOP ( Mas de 768px ) === */
+@media (min-width: 768px) {
+
+    .custom-navbar {
+        /* width: 30px; */
+        background-color: blueviolet !important;
+        padding: 0 !important;
+    }
 
     .uno {
         order: 0;
@@ -96,5 +226,38 @@
     .cuatro {
         order: 2;
     }
+
+
+
+
+
+
+
+
+
+    .container-fluid {
+    /* width: 100px !important; */
+    background-color: red !important;
+    }
+
+
+
+
+    .uno {
+    display: none !important; /* Esto oculta el Navbar.Toggle */
+    }
+
+
+    /* Y asegúrate de que el Navbar.Offcanvas esté oculto en desktop
+    .tres {
+        display: none !important;
+    } */
+
+    .dos {
+        margin: 0 !important;
+    }
+
+
+
 }
 

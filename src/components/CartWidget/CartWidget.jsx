@@ -1,13 +1,18 @@
 import { Link } from 'react-router-dom';
+import Cart from '../Cart/Cart';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import './CartWidget.css';
-// import cartIcon from '../../assets/cart.svg'; // Ruta al ícono
 
 function CartWidget() {
     return (
-        <Link to="/cart" className="cart-widget">
-            {/* <img src={cartIcon} alt="Carrito" /> */}
-            <span className="cart-count">SEXO0</span> {/* Después se conecta con Context */}
-        </Link>
+        <div>
+            <Link as={Link} to="/Cart" className="cart-icon-container">
+                <i class="bi bi-cart2 icon-cart">
+                    <span className="cart-count">0</span>
+                </i>
+            </Link>
+        </div>
+
     );
 }
 
