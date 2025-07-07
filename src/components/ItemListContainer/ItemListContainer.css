@@ -16,21 +16,16 @@
 #container-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columnas flexibles */
-    gap: 1.5rem;
-    padding: 0;
     max-width: 1920px;      /* Limita el ancho del grid en pantallas muy grandes */
     margin-inline: 1.5rem;    /* margen horizontal igual al gap */
     margin-block: 1.5rem;     /* margen arriba y abajo */
     justify-content: center;
     box-sizing: border-box;
+    gap: 1.5rem;
+    padding: 0;
 }
 
-/* 💻 A partir de 768px (tablets, notebooks), dos columnas */
-@media (min-width: 768px) {
-    #container-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
+
 
 /* ItemListContainer.jsx */
 
@@ -38,12 +33,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    background-color: #191616;
-    border: #EAEFEF 0.1px solid;
+    background-color: rgb(0, 0, 0) !important;
+    border: 1px solid gray !important;
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease;
     text-decoration: none;
+    border-radius: 0 !important;
 }
 
 /* .card {
@@ -69,6 +65,7 @@
 .card-image {
     width: 100%;
     object-fit: cover;
+    background-color: red;
 }
 
 .card-content {
@@ -82,7 +79,7 @@
 
 .card-title {
     font-size: 1.25rem;
-    color: #EAEFEF;
+    color: #EAEFEF !important;
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
@@ -100,8 +97,17 @@
     font-size: 1.25rem;
     color: #EAEFEF;
     font-weight: bold;
+    margin: 0;
 }
 
+
+
+/* 💻 A partir de 768px (tablets, notebooks), dos columnas */
+@media (min-width: 768px) {
+    #container-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
 
 
 

@@ -11,9 +11,7 @@ function Layout() {
                     <NavBar />
                 </header>
 
-                <main>
-                    <Outlet />
-                </main>
+                <Outlet /> {/* Main */}
 
                 <footer>
 

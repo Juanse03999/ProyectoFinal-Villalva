@@ -1,5 +1,6 @@
-import React from 'react'
 import ImgInit from '../../assets/home-page/home-img.jpg'
+import lol from '../../assets/home-page/intermedio.png'
+import FeaturedProductsSection from '../FeaturedProductsSection/FeaturedProductsSection'
 
 function Home() {
   return (
@@ -13,8 +14,10 @@ function Home() {
 
       </div>
 
-      <p className='god'> [[Productos destacados]]</p>
+      <FeaturedProductsSection/ >
+      {/* <p className='god'> [[Productos destacados]]</p> */}
 
+      <img src={lol} alt="A" className="interme-img" />
 
     </main>
       
