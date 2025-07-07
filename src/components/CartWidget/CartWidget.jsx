@@ -7,12 +7,11 @@ function CartWidget() {
     return (
         <div>
             <Link as={Link} to="/Cart" className="cart-icon-container">
-                <i class="bi bi-cart2 icon-cart">
+                <i className="bi bi-cart2 icon-cart">
                     <span className="cart-count">0</span>
                 </i>
             </Link>
         </div>
-
     );
 }
 

@@ -5,12 +5,21 @@ import "./Layout.css"
 function Layout() {
     return (
         <>
-            <div>
-                <NavBar />
+            <div className='app-container'>
+
+                <header>
+                    <NavBar />
+                </header>
 
                 <main>
                     <Outlet />
                 </main>
+
+                <footer>
+
+                </footer>
+
+
             </div>
         </>
     );

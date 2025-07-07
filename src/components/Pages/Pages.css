@@ -1,7 +1,39 @@
 /* HOME */
 
+.body-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.container-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+    position: relative;
+}
 
+.init-img {
+    width: 100%;
+}
+
+.eslogan {
+    width: 100vw;
+    font-size: 15px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.300);
+    color: white;
+    position: absolute;
+    margin: 0;
+    padding: 0 auto;
+}
+
+.god {
+    font-size: 22px;
+    color: white;
+    margin: 2rem 0;
+}
 
 
 
@@ -17,14 +49,8 @@
 
 /* PRODUCTS */
 
-
-.BG-PRODUCTS {
-    background-color: black;
-}
-
 .products-title {
-    margin: 0;
+    margin: 1rem 0;
 }
-
 
 /* PRODUCTS */

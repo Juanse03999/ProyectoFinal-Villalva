@@ -48,19 +48,31 @@ function NavBar() {
 
                     <Offcanvas.Body className="offcanvas-body">
                         
-                            <Link as={Link} to="/" className="link1" onClick={handleCloseOffcanvas}>
+                            <Link as={Link} to="/" className="links" onClick={handleCloseOffcanvas}>
                             Inicio
                             </Link>
 
-                            <Link as={Link} to="/products" className="link1" onClick={handleCloseOffcanvas}>
+                            <Link as={Link} to="/products" className="links" onClick={handleCloseOffcanvas}>
                                 Productos
                             </Link>
 
-                            <Link as={Link} to="/info" className="link1" onClick={handleCloseOffcanvas}>
+                            <Link as={Link} to="/info" className="links" onClick={handleCloseOffcanvas}>
                                 Nosotros
                             </Link>
 
                     </Offcanvas.Body>
+
+                    <div className='offcanvas-footer'>
+
+                        <Link as={Link} to="/info" className="links links-login" onClick={handleCloseOffcanvas}>
+                            Iniciar Sesión / Crear Cuenta
+                        </Link>
+                    </div>
+
+                    {/* <Offcanvas.Footer className="offcanvas-footer">
+                        <div></div>
+
+                    </Offcanvas.Footer> */}
 
                 </Navbar.Offcanvas>
 
