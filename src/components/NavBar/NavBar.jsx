@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap"
+import { Container, Nav, Navbar, Offcanvas, Dropdown } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import CartWidget from "../CartWidget/CartWidget"
 import logo from "../../assets/logos/logo_blanco.svg"
@@ -14,13 +14,7 @@ function NavBar() {
     const handleCloseOffcanvas = () => setShowOffcanvas(false);
     const handleShowOffcanvas = () => setShowOffcanvas(true);
 
-    // Componente para tu Brand/Logo (reutilizable)
-    // Se le pasa 'onClick' para que pueda cerrar el offcanvas si el logo está dentro
-    const MyBrand = ({ onClick }) => (
-        <Link to="/" className="navbar-brand-custom-logo" onClick={onClick}>
-            <img src={logo || "/placeholder.svg"} alt="Tienda Piola" className="logo-img" />
-        </Link>
-    )
+
 
     return (
         <Navbar expand="md" className="custom-navbar">
@@ -48,17 +42,29 @@ function NavBar() {
 
                     <Offcanvas.Body className="offcanvas-body">
                         
-                            <Link as={Link} to="/" className="links" onClick={handleCloseOffcanvas}>
-                            Inicio
-                            </Link>
+                        <Link as={Link} to="/" className="links" onClick={handleCloseOffcanvas}>
+                        Inicio
+                        </Link>
 
-                            <Link as={Link} to="/products" className="links" onClick={handleCloseOffcanvas}>
-                                Productos
-                            </Link>
+                        <Link as={Link} to="/products" className="links" onClick={handleCloseOffcanvas}>
+                            Productos
+                        </Link>
 
-                            <Link as={Link} to="/info" className="links" onClick={handleCloseOffcanvas}>
-                                Nosotros
-                            </Link>
+                        <Link as={Link} to="/info" className="links" onClick={handleCloseOffcanvas}>
+                            Nosotros
+                        </Link>
+
+                        <Dropdown>
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                Dropdown Button
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
 
                     </Offcanvas.Body>
 

@@ -22,7 +22,7 @@ function ItemList({ items }) {
 
     return (
         <div>
-            <div>
+            <div className='sdada'>
                 <button onClick={() => setSelectedCategory(categories.CAMISAS)}>
                     Camisas piolas
                 </button>

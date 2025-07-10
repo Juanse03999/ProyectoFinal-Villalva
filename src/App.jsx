@@ -20,12 +20,20 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
 
-            <Route index element={<Home />} />
+            {/* <Route index element={<Home />} />
             <Route path="/products" element={<Products />} />
             <Route path="products/:id" element={<ItemDetail />} />
-            {/* <Route path="product/:productId" element={<ItemDetailContainer />} /> */}
-            {/* <Route path="checkout" element={<CheckoutForm />} /> */}
             <Route path="info" element={<Info />} />
+            <Route path="cart" element={<Cart />} />
+            <Route path="*" element={<Error404 />} /> */}
+
+            <Route index element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            {/* RUTA PARA FILTRAR POR CATEGORÍA */}
+            <Route path="/products/:categoryId" element={<Products />} />
+            {/* RUTA PARA EL DETALLE DEL PRODUCTO */}
+            <Route path="/item/:itemId" element={<ItemDetail />} />
+            <Route path="/info" element={<Info />} />
             <Route path="cart" element={<Cart />} />
             <Route path="*" element={<Error404 />} />
 

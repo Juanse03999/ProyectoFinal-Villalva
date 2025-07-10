@@ -1,15 +1,3 @@
-/* PAGE PRODUCT */
-
-.products-title {
-    color: #EAEFEF;
-    text-align: center;
-    margin-top: 24px;
-}
-
-/* PAGE PRODUCT */
-
-
-
 /* ItemListContainer.jsx */
 
 /* 📱 Una sola columna en celular */
@@ -24,6 +12,88 @@
     gap: 1.5rem;
     padding: 0;
 }
+
+
+/* MAIN CONTENT */
+
+
+.filter-btn {
+    background-color: red;
+    padding: 0;
+}
+
+.hhh {
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+.main-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    /* padding: 1rem; */
+}
+
+.filter-category {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    padding: 1rem;
+}
+
+.filter-type {
+    border: 1px solid #ddd;
+    padding: 1rem;
+}
+
+.filters h2 {
+    font-size: 18px;
+    margin-bottom: 1rem;
+}
+
+.filters-category h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.filter-category label {
+    display: inline-block;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.filter-category span {
+    font-size: 14px;
+}
+
+.filters label input {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+}
+
+input [type = "checkbox"] {
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* MAIN CONTENT */
+
 
 
 
@@ -42,20 +112,6 @@
     border-radius: 0 !important;
 }
 
-/* .card {
-    width: 100%;
-    min-height: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    background-color: #191616;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease;
-    border: #EAEFEF 0.1px solid;
-    text-decoration: none;
-}
-
- */
 
 
 .card:hover {
@@ -105,14 +161,14 @@
 /* 💻 A partir de 768px (tablets, notebooks), dos columnas */
 @media (min-width: 768px) {
     #container-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
 
 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
     #container-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-}
+} */
