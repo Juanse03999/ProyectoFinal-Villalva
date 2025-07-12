@@ -36,11 +36,10 @@
 
 
 
-.main-content {
+/* .main-content {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
-    /* padding: 1rem; */
 }
 
 .filter-category {
@@ -89,7 +88,183 @@ input [type = "checkbox"] {
     vertical-align: middle;
     margin: 0;
     padding: 0;
+} */
+
+
+
+
+/* HOLA */
+
+
+/* Puedes poner este CSS en src/index.css o src/App.css */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0; /* Asegúrate de que no haya márgenes extra en el body */
 }
+
+/* --- Estilos Generales para Botones y Offcanvas (ambos layouts) --- */
+.btn-custom {
+    background-color: #007bff;
+    border-color: #007bff;
+    border-radius: 10px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    margin: 0.5rem;
+}
+.btn-custom:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    transform: translateY(-2px);
+}
+.offcanvas {
+    border-radius: 15px 0 0 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.offcanvas-header {
+    background-color: #e9ecef;
+    border-bottom: 1px solid #dee2e6;
+    border-radius: 15px 0 0 0;
+}
+.offcanvas-title {
+    color: #343a40;
+}
+.offcanvas-body {
+    padding: 1.5rem;
+}
+.form-check-label {
+    cursor: pointer;
+}
+.form-range {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* --- Estilos para la sección de productos (común a ambos layouts) --- */
+.error-message {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+#container-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.card-content {
+    padding: 15px;
+}
+.card-title {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    color: #333;
+}
+.card-price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #007bff;
+}
+
+
+/* --- LAYOUTS ESPECÍFICOS POR TAMAÑO DE PANTALLA --- */
+
+/* Estilos para MOBILE (por defecto, hasta 767.98px) */
+/* main-content ya es flex-column por defecto si no hay media query que lo cambie */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.collections { /* Si mantienes esta clase para mobile products, si no, puedes usar #container-grid */
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 30px;
+}
+
+
+/* Estilos para TABLET & DESKTOP (md y superior, >= 768px) */
+@media (min-width: 768px) {
+    .main-content {
+        /* Deshacemos algunos estilos de mobile si fueran globales */
+        padding: 0; /* Lo gestiona main-content-desktop */
+    }
+
+    .main-content-desktop {
+        display: flex; /* Convierte el contenedor en flexbox */
+        flex-direction: row; /* Coloca la sidebar y el contenido uno al lado del otro */
+        align-items: flex-start; /* Alinea los elementos al inicio (arriba) */
+        width: 100%; /* Ocupa todo el ancho disponible */
+        max-width: 1400px; /* Ancho máximo para el contenido total */
+        margin: 40px auto; /* Centra el contenedor y le da margen superior/inferior */
+    }
+
+    .desktop-filters {
+        flex: 0 0 280px; /* Ancho fijo para la sidebar */
+        margin-right: 30px; /* Espacio entre sidebar y productos */
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .desktop-filters h2, .desktop-filters h3, .desktop-filters h6 {
+        color: #343a40;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+    .desktop-filters .form-check {
+        margin-bottom: 10px;
+    }
+
+    .collections-desktop {
+        flex-grow: 1; /* Permite que la sección de productos ocupe el espacio restante */
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .collections-desktop h2 {
+        color: #343a40;
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+
+    /* Ajuste para el grid de productos dentro del layout desktop */
+    #container-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Ajustado para más columnas si hay sidebar */
+    }
+}
+
+
+
+
+/* HOLA */
+
+
+
+
 
 
 /* MAIN CONTENT */

@@ -1,255 +1,368 @@
-// import React, { useState, useEffect } from 'react';
-// // import { useEffect, useState } from "react";
-// import ItemList from "./ItemList";
-// import { useParams } from 'react-router-dom';
-// // import TextilProducts from "../../data/products"
-// import "./ItemListContainer.css"
-
-// import { db } from '../../firebase/config'; // Importa la instancia de db
-// import { collection, getDocs, query, where } from 'firebase/firestore'; // Funciones de Firestore
-
-// function ItemListContainer() {
-//     const [items, setItems] = useState([]);
-//     const [loading, setLoading] = useState(true); // Para mostrar "cargando..."
-//     const [error, setError] = useState(null);   // Para manejar errores
-//     const { categoryId } = useParams(); // Para filtrar por categoría desde la URL
-
-//     useEffect(() => {
-//         setLoading(true); // Indicar que la carga ha comenzado
-//         setError(null);   // Limpiar cualquier error previo
-
-//         // Paso A: Crear una referencia a la colección 'products' en Firestore
-//         const camisasRef = collection(db, 'camisas');
-
-//         // Paso B: Definir la consulta
-//         // Si hay un categoryId en la URL, filtramos por categoría
-//         const q = categoryId
-//             ? query(camisasRef, where('category', '==', categoryId))
-//             : camisasRef; // Si no hay categoryId, traemos todos los productos
-
-//         // Paso C: Obtener los documentos de Firestore
-//         getDocs(q)
-//             .then((resp) => {
-//                 // Mapear la respuesta de Firestore para obtener solo los datos que necesitamos
-//                 const newItems = resp.docs.map((doc) => {
-//                     return {
-//                         id: doc.id, // ¡Importante! El ID del documento de Firestore
-//                         ...doc.data(), // El resto de los datos del producto (name, price, image, category, etc.)
-//                     };
-//                 });
-//                 setItems(newItems); // Actualizar el estado con los productos obtenidos
-//             })
-//             .catch((err) => {
-//                 console.error("Error al cargar los productos:", err);
-//                 setError("No pudimos cargar los productos. Intenta de nuevo más tarde.");
-//             })
-//             .finally(() => {
-//                 setLoading(false); // Indicar que la carga ha terminado
-//             });
-//     }, [categoryId]); // Dependencia: el efecto se ejecuta cada vez que categoryId cambie
-
-//     return (
-//         <div className="item-list-container">
-//             {loading && <p className="loading-message">Cargando productos...</p>} {/* Muestra mensaje de carga */}
-//             {error && <p className="error-message">{error}</p>} {/* Muestra mensaje de error */}
-//             {!loading && !error && <ItemList items={items} />} {/* Muestra los productos solo si no hay carga ni error */}
-//         </div>
-//     );
-// }
-
-// export default ItemListContainer
-
-
-
-
-
-
-import { Container, Nav, Navbar, Offcanvas, Dropdown } from "react-bootstrap"
-
+// ItemListContainer.jsx
+import React, { useState, useEffect } from "react";
+import { Button, Offcanvas, Form, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from "react"
 
 const ItemListContainer = () => {
+    // Estados para controlar la visibilidad de los Offcanvas de ordenar y filtrar
+    const [showSortOffcanvas, setShowSortOffcanvas] = useState(false);
+    const [showFilterOffcanvas, setShowFilterOffcanvas] = useState(false);
 
-        // 1. Define el estado para controlar la visibilidad del Offcanvas
-        const [showOffcanvas, setShowOffcanvas] = useState(false);
-    
-        // Funciones para manejar la apertura y cierre del Offcanvas
-        const handleCloseOffcanvas = () => setShowOffcanvas(false);
-        const handleShowOffcanvas = () => setShowOffcanvas(true);
+    // Estados para manejar las opciones de ordenamiento y filtro
+    const [selectedSortOption, setSelectedSortOption] = useState('priceLowHigh');
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [priceRange, setPriceRange] = useState(500); // Valor inicial para el slider
 
+    // Funciones para abrir/cerrar los Offcanvas
+    const handleCloseSort = () => setShowSortOffcanvas(false);
+    const handleShowSort = () => setShowSortOffcanvas(true);
 
-    const [products, setProducts] = useState([])
-    const [error, setError] = useState(null)
+    const handleCloseFilter = () => setShowFilterOffcanvas(false);
+    const handleShowFilter = () => setShowFilterOffcanvas(true);
+
+    // Funciones para manejar los cambios en los formularios de ordenar y filtrar
+    const handleSortChange = (event) => {
+        setSelectedSortOption(event.target.value);
+        console.log("Ordenando por:", event.target.value);
+        // Aquí podrías disparar una función para aplicar el ordenamiento a tus productos
+        // Idealmente, esto debería cerrar el offcanvas de ordenar también si es un botón de "Aplicar Orden"
+    };
+
+    const handleCategoryChange = (event) => {
+        const { value, checked } = event.target;
+        if (checked) {
+            setSelectedCategories([...selectedCategories, value]);
+        } else {
+            setSelectedCategories(selectedCategories.filter(category => category !== value));
+        }
+        console.log("Categorías seleccionadas:", selectedCategories);
+    };
+
+    const handlePriceRangeChange = (event) => {
+        setPriceRange(event.target.value);
+        console.log("Rango de precio seleccionado:", event.target.value);
+    };
+
+    // Funciones para aplicar o limpiar filtros
+    const applyFilters = () => {
+        console.log("Aplicando filtros:", { selectedCategories, priceRange });
+        // Lógica para aplicar los filtros a tus productos
+        handleCloseFilter(); // Cierra el offcanvas después de aplicar
+    };
+
+    const clearFilters = () => {
+        setSelectedCategories([]);
+        setPriceRange(500); // Reinicia el slider
+        console.log("Filtros limpiados.");
+        // Lógica para limpiar los filtros de tus productos
+        // Opcional: handleCloseFilter(); // Cierra el offcanvas
+    };
+
+    // --- Tu lógica existente para cargar productos desde la API ---
+    const [products, setProducts] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await fetch ("https://api-ten-jet.vercel.app/products")
+                const response = await fetch("https://api-ten-jet.vercel.app/products");
                 if (!response.ok) {
-                    throw new Error("Error al cargar los productos")
+                    throw new Error("Error al cargar los productos");
                 }
-                const data = await response.json()
-                setProducts(data)
+                const data = await response.json();
+                setProducts(data);
 
             } catch (error) {
-                setError(error.message)
+                setError(error.message);
             }
-        }
-        fetchProducts()
-    }, [])
+        };
+        fetchProducts();
+    }, []); // El array vacío asegura que se ejecute solo una vez al montar el componente
 
+    // Aquí podrías agregar lógica para filtrar y ordenar los 'products'
+    // basándote en 'selectedSortOption', 'selectedCategories', 'priceRange'
+    // Por ejemplo, una función `getFilteredAndSortedProducts` que retorne una nueva lista.
 
     return (
-        
         <section className='main-content'>
+            {/* Contenedor principal para los botones de offcanvas (VISIBLES SOLO EN MÓVILES) */}
+            <Container className="d-md-none d-flex flex-column align-items-center justify-content-center pt-5 pb-3">
+                <h1 className="mb-4 text-center">Página de Productos</h1>
+                <p className="mb-3 text-center">Utilizá los botones para ordenar o filtrar los productos.</p>
 
-            <Navbar expand="md" className="filter-btn">
-            {/* <Container fluid className="container-fluid"> */}
+                <div className="d-flex justify-content-center">
+                    {/* Botón para abrir el offcanvas de Ordenar */}
+                    <Button variant="primary" onClick={handleShowSort} className="btn-custom">
+                        Ordenar
+                    </Button>
 
-
-                <p aria-controls="offcanvasNavbar" onClick={handleShowOffcanvas} className="hhh">Ordenar</p>
-
-                <Navbar.Offcanvas id={`offcanvasNavbar-expand-`} aria-labelledby={`offcanvasNavbarLabel-expand-`} placement="start" className="tres" show={showOffcanvas}
-                    onHide={handleCloseOffcanvas}>
-
-                    <Offcanvas.Header closeButton className='offcanvas-header'>
-
-                        {/* <button type="button" class="btn-close" aria-label="Close"></button> */}
-
-
-                    </Offcanvas.Header>
-
-
-                    <Offcanvas.Body className="offcanvas-body">
-                        
-                        <Link as={Link} to="/" className="links" onClick={handleCloseOffcanvas}>
-                        Inicio
-                        </Link>
-
-                        <Link as={Link} to="/products" className="links" onClick={handleCloseOffcanvas}>
-                            Productos
-                        </Link>
-
-                        <Link as={Link} to="/info" className="links" onClick={handleCloseOffcanvas}>
-                            Nosotros
-                        </Link>
-
-                        <Dropdown>
-                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                Dropdown Button
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-
-                    </Offcanvas.Body>
-
-                    <div className='offcanvas-footer'>
-
-                        <Link as={Link} to="/info" className="links links-login" onClick={handleCloseOffcanvas}>
-                            Iniciar Sesión / Crear Cuenta
-                        </Link>
-                    </div>
-
-                    {/* <Offcanvas.Footer className="offcanvas-footer">
-                        <div></div>
-
-                    </Offcanvas.Footer> */}
-
-                </Navbar.Offcanvas>
-
-
-            {/* </Container> */}
-        </Navbar>
-
-
-
-
-
-
-
-
-
-
-
-            <aside className='filters'>
-                <h2>Filtros</h2>
-                <div className='filters-category'>
-                    <div className="filter-category">
-                        <h3>Categorias</h3>
-                        <label>
-                            <input type="checkbox" name="" id="" />
-                            <span>Hombres</span>
-                        </label>
-                        <label>
-                            <input type="checkbox" name="" id="" />
-                            <span>Mujeres</span>
-                        </label>
-                        <label>
-                            <input type="checkbox" name="" id="" />
-                            <span>Niños</span>
-                        </label>
-                    </div>
-
-                    <div className="filter-type">
-                        <h3>Tipos</h3>
-                        <label>
-                            <input type="checkbox" name="" id="" />
-                            <span>Camisas</span>
-                        </label>
-                        <label>
-                            <input type="checkbox" name="" id="" />
-                            <span>Pantalones</span>
-                        </label>
-                        <label>
-                            <input type="checkbox" name="" id="" />
-                            <span>Zapatillas</span>
-                        </label>
-                    </div>
+                    {/* Botón para abrir el offcanvas de Filtrar */}
+                    <Button variant="primary" onClick={handleShowFilter} className="btn-custom">
+                        Filtrar
+                    </Button>
                 </div>
-            </aside>
-            <main className='collections'>
-                <div className="options">
-                    <h2>TODAS LAS COLECCIONES</h2>
+            </Container>
+
+            {/* Offcanvas para Ordenar (VISIBLE SOLO EN MÓVILES) */}
+            <Offcanvas show={showSortOffcanvas} onHide={handleCloseSort} placement="start" className="d-md-none">
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>Ordenar Productos</Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <p>Seleccioná cómo querés ordenar los productos:</p>
+                    <Form>
+                        <Form.Check
+                            type="radio"
+                            id="sortPriceLowHigh"
+                            label="Precio: Menor a Mayor"
+                            name="sortOptions"
+                            value="priceLowHigh"
+                            checked={selectedSortOption === 'priceLowHigh'}
+                            onChange={handleSortChange}
+                            className="mb-2"
+                        />
+                        <Form.Check
+                            type="radio"
+                            id="sortPriceHighLow"
+                            label="Precio: Mayor a Menor"
+                            name="sortOptions"
+                            value="priceHighLow"
+                            checked={selectedSortOption === 'priceHighLow'}
+                            onChange={handleSortChange}
+                            className="mb-2"
+                        />
+                        <Form.Check
+                            type="radio"
+                            id="sortNewest"
+                            label="Más Novedosos"
+                            name="sortOptions"
+                            value="newest"
+                            checked={selectedSortOption === 'newest'}
+                            onChange={handleSortChange}
+                            className="mb-2"
+                        />
+                        <Form.Check
+                            type="radio"
+                            id="sortPopularity"
+                            label="Más Populares"
+                            name="sortOptions"
+                            value="popularity"
+                            checked={selectedSortOption === 'popularity'}
+                            onChange={handleSortChange}
+                            className="mb-2"
+                        />
+                        <hr className="my-4" />
+                        <Button variant="primary" className="w-100" onClick={handleCloseSort}>Aplicar Orden</Button>
+                    </Form>
+                </Offcanvas.Body>
+            </Offcanvas>
+
+            {/* Offcanvas para Filtrar (VISIBLE SOLO EN MÓVILES) */}
+            <Offcanvas show={showFilterOffcanvas} onHide={handleCloseFilter} placement="start" className="d-md-none">
+                <Offcanvas.Header closeButton>
+                    <Offcanvas.Title>Filtrar Productos</Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                    <p>Ajustá los filtros para encontrar lo que buscás:</p>
+
+                    <h6 className="mt-3">Categorías</h6>
+                    <Form>
+                        <Form.Check
+                            type="checkbox"
+                            id="categoryElectronics"
+                            label="Electrónica"
+                            value="electronics"
+                            checked={selectedCategories.includes('electronics')}
+                            onChange={handleCategoryChange}
+                            className="mb-2"
+                        />
+                        <Form.Check
+                            type="checkbox"
+                            id="categoryClothing"
+                            label="Ropa"
+                            value="clothing"
+                            checked={selectedCategories.includes('clothing')}
+                            onChange={handleCategoryChange}
+                            className="mb-2"
+                        />
+                        <Form.Check
+                            type="checkbox"
+                            id="categoryHome"
+                            label="Hogar"
+                            value="home"
+                            checked={selectedCategories.includes('home')}
+                            onChange={handleCategoryChange}
+                            className="mb-2"
+                        />
+                        <Form.Check
+                            type="checkbox"
+                            id="categoryBooks"
+                            label="Libros"
+                            value="books"
+                            checked={selectedCategories.includes('books')}
+                            onChange={handleCategoryChange}
+                            className="mb-2"
+                        />
+                    </Form>
+
+                    <h6 className="mt-4">Rango de Precio</h6>
+                    <Form.Label htmlFor="priceRange">Precio: ${priceRange}</Form.Label>
+                    <Form.Range
+                        min="0"
+                        max="1000"
+                        step="50"
+                        value={priceRange}
+                        onChange={handlePriceRangeChange}
+                        id="priceRange"
+                    />
+                    <div className="d-flex justify-content-between">
+                        <span>$0</span>
+                        <span>$1000+</span>
+                    </div>
+
+                    <hr className="my-4" />
+                    <Button variant="primary" className="w-100" onClick={applyFilters}>Aplicar Filtros</Button>
+                    <Button variant="outline-secondary" className="w-100 mt-2" onClick={clearFilters}>Limpiar Filtros</Button>
+                </Offcanvas.Body>
+            </Offcanvas>
+
+            {/* --- Contenido principal con Sidebar de Filtros/Ordenamiento (VISIBLE EN TABLET/DESKTOP) --- */}
+            <div className="d-none d-md-flex container-lg main-content-desktop"> {/* Usamos container-lg para ancho limitado */}
+                {/* Sidebar de Filtros y Ordenamiento para Desktop */}
+                <aside className='desktop-filters'>
+                    <h2>Filtros</h2>
+                    <div className='filters-category'>
+                        <div className="filter-category">
+                            <h3>Categorías</h3>
+                            <Form>
+                                <Form.Check
+                                    type="checkbox"
+                                    id="desktopCategoryElectronics"
+                                    label="Electrónica"
+                                    value="electronics"
+                                    checked={selectedCategories.includes('electronics')}
+                                    onChange={handleCategoryChange}
+                                    className="mb-2"
+                                />
+                                <Form.Check
+                                    type="checkbox"
+                                    id="desktopCategoryClothing"
+                                    label="Ropa"
+                                    value="clothing"
+                                    checked={selectedCategories.includes('clothing')}
+                                    onChange={handleCategoryChange}
+                                    className="mb-2"
+                                />
+                                <Form.Check
+                                    type="checkbox"
+                                    id="desktopCategoryHome"
+                                    label="Hogar"
+                                    value="home"
+                                    checked={selectedCategories.includes('home')}
+                                    onChange={handleCategoryChange}
+                                    className="mb-2"
+                                />
+                                <Form.Check
+                                    type="checkbox"
+                                    id="desktopCategoryBooks"
+                                    label="Libros"
+                                    value="books"
+                                    checked={selectedCategories.includes('books')}
+                                    onChange={handleCategoryChange}
+                                    className="mb-2"
+                                />
+                            </Form>
+                        </div>
+                        <h6 className="mt-4">Rango de Precio</h6>
+                        <Form.Label htmlFor="desktopPriceRange">Precio: ${priceRange}</Form.Label>
+                        <Form.Range
+                            min="0"
+                            max="1000"
+                            step="50"
+                            value={priceRange}
+                            onChange={handlePriceRangeChange}
+                            id="desktopPriceRange"
+                        />
+                        <div className="d-flex justify-content-between">
+                            <span>$0</span>
+                            <span>$1000+</span>
+                        </div>
+                        <hr className="my-4" />
+                        <Button variant="primary" className="w-100 mb-2" onClick={applyFilters}>Aplicar Filtros</Button>
+                        <Button variant="outline-secondary" className="w-100" onClick={clearFilters}>Limpiar Filtros</Button>
+
+                    </div>
+
+                    <h2 className="mt-5">Ordenar por</h2>
                     <div className="sort-options">
-                        <label>
-                            Ordenar por:
-                            <select>
-                                <option>Relevante</option>
-                                <option>Precio: Menor a Mayor</option>
-                                <option>Precio: Mayor a Menor</option>
-                            </select>
-                        </label>
+                        <Form>
+                            <Form.Check
+                                type="radio"
+                                id="desktopSortPriceLowHigh"
+                                label="Precio: Menor a Mayor"
+                                name="desktopSortOptions"
+                                value="priceLowHigh"
+                                checked={selectedSortOption === 'priceLowHigh'}
+                                onChange={handleSortChange}
+                                className="mb-2"
+                            />
+                            <Form.Check
+                                type="radio"
+                                id="desktopSortPriceHighLow"
+                                label="Precio: Mayor a Menor"
+                                name="desktopSortOptions"
+                                value="priceHighLow"
+                                checked={selectedSortOption === 'priceHighLow'}
+                                onChange={handleSortChange}
+                                className="mb-2"
+                            />
+                            <Form.Check
+                                type="radio"
+                                id="desktopSortNewest"
+                                label="Más Novedosos"
+                                name="desktopSortOptions"
+                                value="newest"
+                                checked={selectedSortOption === 'newest'}
+                                onChange={handleSortChange}
+                                className="mb-2"
+                            />
+                            <Form.Check
+                                type="radio"
+                                id="desktopSortPopularity"
+                                label="Más Populares"
+                                name="desktopSortOptions"
+                                value="popularity"
+                                checked={selectedSortOption === 'popularity'}
+                                onChange={handleSortChange}
+                                className="mb-2"
+                            />
+                            <Button variant="primary" className="w-100 mt-3" onClick={handleCloseSort}>Aplicar Orden</Button>
+                        </Form>
                     </div>
-                </div>
+                </aside>
 
-                <div id='container-grid'>
-                    {error ? (
-                        <p className="error-message">{error}</p>
-                    ):(
-                        products.map((product) =>
-                            <Link to="#" className="card" key={product.id}>
-                                <img src={product.image} alt={product.image} className="product-image" />
-                                <div className="card-content">
-                                    <h3 className="card-title">{product.nombre}</h3>
-                                    {/* <p className="card-description">{product.descripcion}</p> */}
-                                    <p className="card-price">${product.price}</p>
-                                </div>
-                            </Link>
-
-                        )
-                    )}
-                </div>
-                
-            </main>
-
+                {/* Main Content de Productos para Desktop */}
+                <main className='collections-desktop'>
+                    <h2 className="mb-4">TODAS LAS COLECCIONES</h2>
+                    <div id='container-grid'>
+                        {error ? (
+                            <p className="error-message">{error}</p>
+                        ) : (
+                            products.map((product) =>
+                                <Link to="#" className="card" key={product.id}>
+                                    <img src={product.image} alt={product.nombre} className="product-image" />
+                                    <div className="card-content">
+                                        <h3 className="card-title">{product.nombre}</h3>
+                                        <p className="card-price">${product.price}</p>
+                                    </div>
+                                </Link>
+                            )
+                        )}
+                    </div>
+                </main>
+            </div>
         </section>
-    )
-}
+    );
+};
 
-export default ItemListContainer
+export default ItemListContainer;
