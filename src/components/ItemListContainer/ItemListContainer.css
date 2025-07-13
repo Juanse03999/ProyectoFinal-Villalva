@@ -97,14 +97,23 @@ input [type = "checkbox"] {
 
 
 /* Puedes poner este CSS en src/index.css o src/App.css */
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f8f9fa;
-    margin: 0; /* Asegúrate de que no haya márgenes extra en el body */
-}
+
 
 /* --- Estilos Generales para Botones y Offcanvas (ambos layouts) --- */
+
+.main-content {
+    width: 100vw !important;
+    padding: 0 !important;
+}
+.container-filters {
+    width: 100% !important;
+    display: flex;
+    /* justify-content: space-between; */
+    margin: 0 !important;
+    padding: 0 !important;
+}
 .btn-custom {
+    /* width: 100%; */
     background-color: #007bff;
     border-color: #007bff;
     border-radius: 10px;
@@ -118,6 +127,7 @@ body {
     border-color: #0056b3;
     transform: translateY(-2px);
 }
+
 .offcanvas {
     border-radius: 15px 0 0 15px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
@@ -190,44 +200,39 @@ body {
 /* --- LAYOUTS ESPECÍFICOS POR TAMAÑO DE PANTALLA --- */
 
 /* Estilos para MOBILE (por defecto, hasta 767.98px) */
-/* main-content ya es flex-column por defecto si no hay media query que lo cambie */
 .main-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    width: 100%; /* Asegura que ocupe todo el ancho */
 }
-
-.collections { /* Si mantienes esta clase para mobile products, si no, puedes usar #container-grid */
+.collections-mobile {
     width: 100%;
     max-width: 1200px;
     margin-top: 30px;
 }
 
-
 /* Estilos para TABLET & DESKTOP (md y superior, >= 768px) */
 @media (min-width: 768px) {
     .main-content {
-        /* Deshacemos algunos estilos de mobile si fueran globales */
-        padding: 0; /* Lo gestiona main-content-desktop */
+        /* En desktop, el padding y el ancho los maneja el main-content-desktop-wrapper */
+        padding: 0;
+        width: auto; /* Permite que el wrapper interior controle el ancho */
     }
 
-    .main-content-desktop {
-        display: flex; /* Convierte el contenedor en flexbox */
-        flex-direction: row; /* Coloca la sidebar y el contenido uno al lado del otro */
-        align-items: flex-start; /* Alinea los elementos al inicio (arriba) */
-        width: 100%; /* Ocupa todo el ancho disponible */
+    .main-content-desktop-wrapper {
+        width: 100%;
         max-width: 1400px; /* Ancho máximo para el contenido total */
         margin: 40px auto; /* Centra el contenedor y le da margen superior/inferior */
+        padding: 0 20px; /* Padding horizontal para el wrapper */
     }
 
     .desktop-filters {
-        flex: 0 0 280px; /* Ancho fijo para la sidebar */
-        margin-right: 30px; /* Espacio entre sidebar y productos */
         padding: 20px;
         background-color: #ffffff;
         border-radius: 15px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        margin-bottom: 20px; /* Espacio si el sidebar es más corto que los productos */
     }
     .desktop-filters h2, .desktop-filters h3, .desktop-filters h6 {
         color: #343a40;
@@ -239,7 +244,6 @@ body {
     }
 
     .collections-desktop {
-        flex-grow: 1; /* Permite que la sección de productos ocupe el espacio restante */
         padding: 20px;
         background-color: #ffffff;
         border-radius: 15px;
@@ -259,6 +263,10 @@ body {
 
 
 
+.godeano {
+    padding: 0 !important;
+    margin: 0 !important;
+}
 
 /* HOLA */
 

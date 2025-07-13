@@ -1,6 +1,6 @@
 // ItemListContainer.jsx
 import React, { useState, useEffect } from "react";
-import { Button, Offcanvas, Form, Container } from 'react-bootstrap';
+import { Button, Offcanvas, Form, Container, Row, Col } from 'react-bootstrap'; // Importamos Row y Col
 import { Link } from 'react-router-dom';
 
 const ItemListContainer = () => {
@@ -25,7 +25,6 @@ const ItemListContainer = () => {
         setSelectedSortOption(event.target.value);
         console.log("Ordenando por:", event.target.value);
         // Aquí podrías disparar una función para aplicar el ordenamiento a tus productos
-        // Idealmente, esto debería cerrar el offcanvas de ordenar también si es un botón de "Aplicar Orden"
     };
 
     const handleCategoryChange = (event) => {
@@ -85,12 +84,9 @@ const ItemListContainer = () => {
 
     return (
         <section className='main-content'>
-            {/* Contenedor principal para los botones de offcanvas (VISIBLES SOLO EN MÓVILES) */}
-            <Container className="d-md-none d-flex flex-column align-items-center justify-content-center pt-5 pb-3">
-                <h1 className="mb-4 text-center">Página de Productos</h1>
-                <p className="mb-3 text-center">Utilizá los botones para ordenar o filtrar los productos.</p>
+            {/* Contenedor para los botones de offcanvas (VISIBLES SOLO EN MÓVILES) */}
+            <Container className="container-filters d-md-none">
 
-                <div className="d-flex justify-content-center">
                     {/* Botón para abrir el offcanvas de Ordenar */}
                     <Button variant="primary" onClick={handleShowSort} className="btn-custom">
                         Ordenar
@@ -100,7 +96,7 @@ const ItemListContainer = () => {
                     <Button variant="primary" onClick={handleShowFilter} className="btn-custom">
                         Filtrar
                     </Button>
-                </div>
+
             </Container>
 
             {/* Offcanvas para Ordenar (VISIBLE SOLO EN MÓVILES) */}
@@ -226,125 +222,155 @@ const ItemListContainer = () => {
                 </Offcanvas.Body>
             </Offcanvas>
 
-            {/* --- Contenido principal con Sidebar de Filtros/Ordenamiento (VISIBLE EN TABLET/DESKTOP) --- */}
-            <div className="d-none d-md-flex container-lg main-content-desktop"> {/* Usamos container-lg para ancho limitado */}
-                {/* Sidebar de Filtros y Ordenamiento para Desktop */}
-                <aside className='desktop-filters'>
-                    <h2>Filtros</h2>
-                    <div className='filters-category'>
-                        <div className="filter-category">
-                            <h3>Categorías</h3>
-                            <Form>
-                                <Form.Check
-                                    type="checkbox"
-                                    id="desktopCategoryElectronics"
-                                    label="Electrónica"
-                                    value="electronics"
-                                    checked={selectedCategories.includes('electronics')}
-                                    onChange={handleCategoryChange}
-                                    className="mb-2"
+            {/* --- Contenido principal con Sidebar de Filtros/Ordenamiento para Desktop --- */}
+            {/* Esta sección es visible en desktop y oculta en mobile */}
+            <Container className="d-none d-md-block main-content-desktop-wrapper">
+                <Row>
+                    {/* Sidebar de Filtros y Ordenamiento para Desktop */}
+                    <Col md={3}> {/* Columna para la barra lateral en desktop */}
+                        <aside className='desktop-filters'>
+                            <h2>Filtros</h2>
+                            <div className='filters-category'>
+                                <div className="filter-category">
+                                    <h3>Categorías</h3>
+                                    <Form>
+                                        <Form.Check
+                                            type="checkbox"
+                                            id="desktopCategoryElectronics"
+                                            label="Electrónica"
+                                            value="electronics"
+                                            checked={selectedCategories.includes('electronics')}
+                                            onChange={handleCategoryChange}
+                                            className="mb-2"
+                                        />
+                                        <Form.Check
+                                            type="checkbox"
+                                            id="desktopCategoryClothing"
+                                            label="Ropa"
+                                            value="clothing"
+                                            checked={selectedCategories.includes('clothing')}
+                                            onChange={handleCategoryChange}
+                                            className="mb-2"
+                                        />
+                                        <Form.Check
+                                            type="checkbox"
+                                            id="desktopCategoryHome"
+                                            label="Hogar"
+                                            value="home"
+                                            checked={selectedCategories.includes('home')}
+                                            onChange={handleCategoryChange}
+                                            className="mb-2"
+                                        />
+                                        <Form.Check
+                                            type="checkbox"
+                                            id="desktopCategoryBooks"
+                                            label="Libros"
+                                            value="books"
+                                            checked={selectedCategories.includes('books')}
+                                            onChange={handleCategoryChange}
+                                            className="mb-2"
+                                        />
+                                    </Form>
+                                </div>
+                                <h6 className="mt-4">Rango de Precio</h6>
+                                <Form.Label htmlFor="desktopPriceRange">Precio: ${priceRange}</Form.Label>
+                                <Form.Range
+                                    min="0"
+                                    max="1000"
+                                    step="50"
+                                    value={priceRange}
+                                    onChange={handlePriceRangeChange}
+                                    id="desktopPriceRange"
                                 />
-                                <Form.Check
-                                    type="checkbox"
-                                    id="desktopCategoryClothing"
-                                    label="Ropa"
-                                    value="clothing"
-                                    checked={selectedCategories.includes('clothing')}
-                                    onChange={handleCategoryChange}
-                                    className="mb-2"
-                                />
-                                <Form.Check
-                                    type="checkbox"
-                                    id="desktopCategoryHome"
-                                    label="Hogar"
-                                    value="home"
-                                    checked={selectedCategories.includes('home')}
-                                    onChange={handleCategoryChange}
-                                    className="mb-2"
-                                />
-                                <Form.Check
-                                    type="checkbox"
-                                    id="desktopCategoryBooks"
-                                    label="Libros"
-                                    value="books"
-                                    checked={selectedCategories.includes('books')}
-                                    onChange={handleCategoryChange}
-                                    className="mb-2"
-                                />
-                            </Form>
-                        </div>
-                        <h6 className="mt-4">Rango de Precio</h6>
-                        <Form.Label htmlFor="desktopPriceRange">Precio: ${priceRange}</Form.Label>
-                        <Form.Range
-                            min="0"
-                            max="1000"
-                            step="50"
-                            value={priceRange}
-                            onChange={handlePriceRangeChange}
-                            id="desktopPriceRange"
-                        />
-                        <div className="d-flex justify-content-between">
-                            <span>$0</span>
-                            <span>$1000+</span>
-                        </div>
-                        <hr className="my-4" />
-                        <Button variant="primary" className="w-100 mb-2" onClick={applyFilters}>Aplicar Filtros</Button>
-                        <Button variant="outline-secondary" className="w-100" onClick={clearFilters}>Limpiar Filtros</Button>
+                                <div className="d-flex justify-content-between">
+                                    <span>$0</span>
+                                    <span>$1000+</span>
+                                </div>
+                                <hr className="my-4" />
+                                <Button variant="primary" className="w-100 mb-2" onClick={applyFilters}>Aplicar Filtros</Button>
+                                <Button variant="outline-secondary" className="w-100" onClick={clearFilters}>Limpiar Filtros</Button>
 
-                    </div>
+                            </div>
 
-                    <h2 className="mt-5">Ordenar por</h2>
-                    <div className="sort-options">
-                        <Form>
-                            <Form.Check
-                                type="radio"
-                                id="desktopSortPriceLowHigh"
-                                label="Precio: Menor a Mayor"
-                                name="desktopSortOptions"
-                                value="priceLowHigh"
-                                checked={selectedSortOption === 'priceLowHigh'}
-                                onChange={handleSortChange}
-                                className="mb-2"
-                            />
-                            <Form.Check
-                                type="radio"
-                                id="desktopSortPriceHighLow"
-                                label="Precio: Mayor a Menor"
-                                name="desktopSortOptions"
-                                value="priceHighLow"
-                                checked={selectedSortOption === 'priceHighLow'}
-                                onChange={handleSortChange}
-                                className="mb-2"
-                            />
-                            <Form.Check
-                                type="radio"
-                                id="desktopSortNewest"
-                                label="Más Novedosos"
-                                name="desktopSortOptions"
-                                value="newest"
-                                checked={selectedSortOption === 'newest'}
-                                onChange={handleSortChange}
-                                className="mb-2"
-                            />
-                            <Form.Check
-                                type="radio"
-                                id="desktopSortPopularity"
-                                label="Más Populares"
-                                name="desktopSortOptions"
-                                value="popularity"
-                                checked={selectedSortOption === 'popularity'}
-                                onChange={handleSortChange}
-                                className="mb-2"
-                            />
-                            <Button variant="primary" className="w-100 mt-3" onClick={handleCloseSort}>Aplicar Orden</Button>
-                        </Form>
-                    </div>
-                </aside>
+                            <h2 className="mt-5">Ordenar por</h2>
+                            <div className="sort-options">
+                                <Form>
+                                    <Form.Check
+                                        type="radio"
+                                        id="desktopSortPriceLowHigh"
+                                        label="Precio: Menor a Mayor"
+                                        name="desktopSortOptions"
+                                        value="priceLowHigh"
+                                        checked={selectedSortOption === 'priceLowHigh'}
+                                        onChange={handleSortChange}
+                                        className="mb-2"
+                                    />
+                                    <Form.Check
+                                        type="radio"
+                                        id="desktopSortPriceHighLow"
+                                        label="Precio: Mayor a Menor"
+                                        name="desktopSortOptions"
+                                        value="priceHighLow"
+                                        checked={selectedSortOption === 'priceHighLow'}
+                                        onChange={handleSortChange}
+                                        className="mb-2"
+                                    />
+                                    <Form.Check
+                                        type="radio"
+                                        id="desktopSortNewest"
+                                        label="Más Novedosos"
+                                        name="desktopSortOptions"
+                                        value="newest"
+                                        checked={selectedSortOption === 'newest'}
+                                        onChange={handleSortChange}
+                                        className="mb-2"
+                                    />
+                                    <Form.Check
+                                        type="radio"
+                                        id="desktopSortPopularity"
+                                        label="Más Populares"
+                                        name="desktopSortOptions"
+                                        value="popularity"
+                                        checked={selectedSortOption === 'popularity'}
+                                        onChange={handleSortChange}
+                                        className="mb-2"
+                                    />
+                                    <Button variant="primary" className="w-100 mt-3" onClick={handleCloseSort}>Aplicar Orden</Button>
+                                </Form>
+                            </div>
+                        </aside>
+                    </Col>
 
-                {/* Main Content de Productos para Desktop */}
-                <main className='collections-desktop'>
-                    <h2 className="mb-4">TODAS LAS COLECCIONES</h2>
-                    <div id='container-grid'>
+                    {/* Main Content de Productos para Desktop */}
+                    <Col md={9}> {/* Columna para los productos en desktop */}
+                        <main className='collections-desktop'>
+                            <h2 className="mb-4">TODAS LAS COLECCIONES</h2>
+                            <div id='container-grid'>
+                                {error ? (
+                                    <p className="error-message">{error}</p>
+                                ) : (
+                                    products.map((product) =>
+                                        <Link to="#" className="card" key={product.id}>
+                                            <img src={product.image} alt={product.nombre} className="product-image" />
+                                            <div className="card-content">
+                                                <h3 className="card-title">{product.nombre}</h3>
+                                                <p className="card-price">${product.price}</p>
+                                            </div>
+                                        </Link>
+                                    )
+                                )}
+                            </div>
+                        </main>
+                    </Col>
+                </Row>
+            </Container>
+
+            {/* Contenido de productos para MOBILE (visible solo en mobile) */}
+            {/* Esta sección se mostrará en mobile, mientras que la de desktop estará oculta */}
+            <Container className="godeano d-md-none">
+                <main className='collections-mobile'>
+                    <h2 className="mb-4 text-center">TODAS LAS COLECCIONES</h2>
+                    <div id='container-grid'> {/* Reutilizamos el mismo ID para el grid */}
                         {error ? (
                             <p className="error-message">{error}</p>
                         ) : (
@@ -360,7 +386,8 @@ const ItemListContainer = () => {
                         )}
                     </div>
                 </main>
-            </div>
+            </Container>
+
         </section>
     );
 };
