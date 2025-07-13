@@ -85,15 +85,17 @@ const ItemListContainer = () => {
     return (
         <section className='main-content'>
             {/* Contenedor para los botones de offcanvas (VISIBLES SOLO EN MÓVILES) */}
-            <Container className="container-filters d-md-none">
+            <Container fluid className="container-filters d-md-none">
 
                     {/* Botón para abrir el offcanvas de Ordenar */}
-                    <Button variant="primary" onClick={handleShowSort} className="btn-custom">
+                    <Button variant="primary" onClick={handleShowSort} className="btn-custom btn-primary-">
+                        <i className="bi bi-arrow-down-up"></i>
                         Ordenar
                     </Button>
 
                     {/* Botón para abrir el offcanvas de Filtrar */}
                     <Button variant="primary" onClick={handleShowFilter} className="btn-custom">
+                        <i className="bi bi-sliders"></i>
                         Filtrar
                     </Button>
 
@@ -224,7 +226,8 @@ const ItemListContainer = () => {
 
             {/* --- Contenido principal con Sidebar de Filtros/Ordenamiento para Desktop --- */}
             {/* Esta sección es visible en desktop y oculta en mobile */}
-            <Container className="d-none d-md-block main-content-desktop-wrapper">
+            {/* <Container className="d-none d-md-block main-content-desktop-wrapper"> */}
+            <Container className="main-content-desktop-wrapper">
                 <Row>
                     {/* Sidebar de Filtros y Ordenamiento para Desktop */}
                     <Col md={3}> {/* Columna para la barra lateral en desktop */}
@@ -367,7 +370,7 @@ const ItemListContainer = () => {
 
             {/* Contenido de productos para MOBILE (visible solo en mobile) */}
             {/* Esta sección se mostrará en mobile, mientras que la de desktop estará oculta */}
-            <Container className="godeano d-md-none">
+            <Container fluid className="godeano d-md-none">
                 <main className='collections-mobile'>
                     <h2 className="mb-4 text-center">TODAS LAS COLECCIONES</h2>
                     <div id='container-grid'> {/* Reutilizamos el mismo ID para el grid */}

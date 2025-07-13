@@ -17,23 +17,6 @@
 /* MAIN CONTENT */
 
 
-.filter-btn {
-    background-color: red;
-    padding: 0;
-}
-
-.hhh {
-    color: white;
-}
-
-
-
-
-
-
-
-
-
 
 
 /* .main-content {
@@ -102,31 +85,50 @@ input [type = "checkbox"] {
 /* --- Estilos Generales para Botones y Offcanvas (ambos layouts) --- */
 
 .main-content {
-    width: 100vw !important;
-    padding: 0 !important;
-}
-.container-filters {
-    width: 100% !important;
     display: flex;
-    /* justify-content: space-between; */
-    margin: 0 !important;
-    padding: 0 !important;
+    flex-direction: column;
+    /* background-color: blue; */
+}
+
+
+.container-filters {
+    background-color: red;
+    display: flex;
+    /* justify-content: center !important; */
+    justify-content: space-around !important;
+    /* background-color: red !important; */
+    /* margin: 0 !important; */
+    /* padding: 0 !important; */
 }
 .btn-custom {
-    /* width: 100%; */
-    background-color: #007bff;
-    border-color: #007bff;
-    border-radius: 10px;
-    padding: 0.75rem 1.5rem;
-    font-size: 1.1rem;
+    width: 100%;
+    background-color: black !important;
+    border-color: none   !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    font-size: 1.5rem !important;
     transition: all 0.3s ease;
-    margin: 0.5rem;
+    /* border-top: 1px violet solid !important; */
+    /* border-bottom: 1px violet solid !important; */
+    border-right: 0 none none;
 }
-.btn-custom:hover {
+
+/* .btn-primary- {
+    border-right-color: rgba(255, 255, 255, 0.1) !important;
+    border-right-style: solid !important;
+    border-right-width: 1px !important;
+} */
+
+.bi {
+    margin: 1rem;
+}
+
+
+/* .btn-custom:hover {
     background-color: #0056b3;
     border-color: #0056b3;
     transform: translateY(-2px);
-}
+} */
 
 .offcanvas {
     border-radius: 15px 0 0 15px;
@@ -201,15 +203,18 @@ input [type = "checkbox"] {
 
 /* Estilos para MOBILE (por defecto, hasta 767.98px) */
 .main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%; /* Asegura que ocupe todo el ancho */
+    width: 100% !important;
 }
 .collections-mobile {
     width: 100%;
     max-width: 1200px;
     margin-top: 30px;
+}
+
+.main-content-desktop-wrapper{
+    display: none;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 /* Estilos para TABLET & DESKTOP (md y superior, >= 768px) */
@@ -221,10 +226,9 @@ input [type = "checkbox"] {
     }
 
     .main-content-desktop-wrapper {
+        display: flex;
         width: 100%;
         max-width: 1400px; /* Ancho máximo para el contenido total */
-        margin: 40px auto; /* Centra el contenedor y le da margen superior/inferior */
-        padding: 0 20px; /* Padding horizontal para el wrapper */
     }
 
     .desktop-filters {
