@@ -1,7 +1,13 @@
 /* ItemListContainer.jsx */
 
-/* 📱 Una sola columna en celular */
-#container-grid {
+/* ACOMODAR GRID DE PRODUCTOS */
+@media (max-width: 567px) {
+
+    .godeano {
+        background-color: red;
+    }
+
+    #container-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columnas flexibles */
     max-width: 1920px;      /* Limita el ancho del grid en pantallas muy grandes */
@@ -11,7 +17,24 @@
     box-sizing: border-box;
     gap: 1.5rem;
     padding: 0;
+    }
 }
+/* ACOMODAR GRID DE PRODUCTOS */
+
+
+
+/* 📱 Una sola columna en celular */
+/* #container-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 1920px; 
+    margin-inline: 1.5rem;    
+    margin-block: 1.5rem;     
+    justify-content: center;
+    box-sizing: border-box;
+    gap: 1.5rem;
+    padding: 0;
+} */
 
 
 /* MAIN CONTENT */
@@ -92,9 +115,7 @@ input [type = "checkbox"] {
 
 
 .container-filters {
-    background-color: red;
     display: flex;
-    /* justify-content: center !important; */
     justify-content: space-around !important;
     /* background-color: red !important; */
     /* margin: 0 !important; */
@@ -102,33 +123,31 @@ input [type = "checkbox"] {
 }
 .btn-custom {
     width: 100%;
-    background-color: black !important;
-    border-color: none   !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    font-size: 1.5rem !important;
-    transition: all 0.3s ease;
-    /* border-top: 1px violet solid !important; */
-    /* border-bottom: 1px violet solid !important; */
-    border-right: 0 none none;
+    background: none;
+    color: white;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    border-right: none;
+    border-left: none;
+    transition: all 0.5s ease;
+    /* border-right: 0 none none; */
+    padding: 0 ;
 }
 
-/* .btn-primary- {
-    border-right-color: rgba(255, 255, 255, 0.1) !important;
-    border-right-style: solid !important;
-    border-right-width: 1px !important;
-} */
+.btn-primary- {
+    border-right: 2px solid gray;
+}
 
 .bi {
     margin: 1rem;
 }
 
 
-/* .btn-custom:hover {
+.btn-custom:hover {
     background-color: #0056b3;
     border-color: #0056b3;
     transform: translateY(-2px);
-} */
+}
 
 .offcanvas {
     border-radius: 15px 0 0 15px;
@@ -202,12 +221,10 @@ input [type = "checkbox"] {
 /* --- LAYOUTS ESPECÍFICOS POR TAMAÑO DE PANTALLA --- */
 
 /* Estilos para MOBILE (por defecto, hasta 767.98px) */
-.main-content {
-    width: 100% !important;
-}
+
 .collections-mobile {
     width: 100%;
-    max-width: 1200px;
+    /* max-width: 1200px; */
     margin-top: 30px;
 }
 
@@ -216,6 +233,11 @@ input [type = "checkbox"] {
     margin: 0 !important;
     padding: 0 !important;
 }
+
+
+
+
+
 
 /* Estilos para TABLET & DESKTOP (md y superior, >= 768px) */
 @media (min-width: 768px) {
