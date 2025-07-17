@@ -101,6 +101,8 @@ const ItemListContainer = () => {
 
             </Container>
 
+            <button></button>
+
             {/* Offcanvas para Ordenar (VISIBLE SOLO EN MÓVILES) */}
             <Offcanvas show={showSortOffcanvas} onHide={handleCloseSort} placement="start" className="d-md-none">
                 <Offcanvas.Header closeButton>
@@ -108,7 +110,7 @@ const ItemListContainer = () => {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                     <p>Seleccioná cómo querés ordenar los productos:</p>
-                    {/* djjdjdd */}
+                    {/* hola */}
                     <Form>
                         <Form.Check
                             type="radio"
